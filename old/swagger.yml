@@ -1,0 +1,120 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file
+  version: "1.0.0"
+  title: Swagger ReST
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /
+
+paths:
+  /cities:
+    get:
+      operationId: cities.read_all
+      tags:
+        - City
+      summary: Read the entire list of cities
+      description: Read the list of cities
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of cities
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering cities
+          required: false
+      responses:
+        200:
+          description: Successfully read cities list operation
+          schema:
+            type: array
+            items:
+              properties:
+                cityname:
+                  type: string
+
+    post:
+      operationId: cities.create
+      tags:
+        - cities
+      summary: Create a city and add it to the cities list
+      description: Create a new city in the cities list
+      parameters:
+        - name: city
+          in: body
+          description: city to create
+          required: True
+          schema:
+            type: object
+            properties:
+              cityname:
+                type: string
+                description: Name of city to create
+      responses:
+        201:
+          description: Successfully created city in list
+
+  /cities/{cityname}:
+    get:
+      operationId: cities.read_one
+      tags:
+        - cities
+      summary: Read one city from the cities list
+      description: Read one city from the cities list
+      parameters:
+        - name: cityname
+          in: path
+          description: Name of the city to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read city from cities list operation
+          schema:
+            properties:
+              cityname:
+                type: string
+
+    put:
+      operationId: cities.update
+      tags:
+        - cities
+      summary: Update a city in the cities list
+      description: Update the weather of a city in the cities list
+      parameters:
+        - name: cityname
+          in: path
+          description: Name of the city to update in the list
+          type: string
+          required: True
+        - name: city
+          in: body
+          schema:
+            type: object
+            properties:
+              cityname:
+                type: string
+      responses:
+        200:
+          description: Successfully updated city in cities list
+
+    delete:
+      operationId: cities.delete
+      tags:
+        - cities
+      summary: Delete a city from the cities list
+      description: Delete a city
+      parameters:
+        - name: cityname
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a city from cities list

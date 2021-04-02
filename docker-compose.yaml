@@ -1,0 +1,12 @@
+version: '2.4'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    mem_limit: 128M
+    mem_reservation: 128M
+    ports:
+      - '5000:5000'
+    env_file:
+      - .env
